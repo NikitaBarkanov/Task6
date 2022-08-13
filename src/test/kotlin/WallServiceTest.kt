@@ -201,5 +201,75 @@ class WallServiceTest {
 
         assertEquals(repost, result)
     }
+
+    @Test
+    fun comments(){
+        val service = WallService
+        val post = Post(
+            id = 0,
+            ownerId = 0,
+            fromId = 0,
+            createBy = 0,
+            date = 0,
+            text = Text(),
+            replyOwnerId = 0,
+            replyPostId = 0,
+            friendsOnly = false,
+            comments = 0,
+            likes = 0,
+            reposts = 0,
+            postType = " ",
+            signerId = 0,
+            canPin = false,
+            canDelete = false,
+            canEdit = false,
+            isPinned = false,
+            markedAsAds = true,
+            isFavourite = false,
+            null
+        )
+
+        val comment = Comments(
+            1,3,2,"GGG", 2,3, attachement = post.attachements[1]
+        )
+        val result = service.comment(1,comment,post)
+
+        assertEquals(comment, result)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+        fun shouldItThrown(){
+            val service = WallService
+            val post = Post(
+                id = 0,
+                ownerId = 0,
+                fromId = 0,
+                createBy = 0,
+                date = 0,
+                text = Text(),
+                replyOwnerId = 0,
+                replyPostId = 0,
+                friendsOnly = false,
+                comments = 0,
+                likes = 0,
+                reposts = 0,
+                postType = " ",
+                signerId = 0,
+                canPin = false,
+                canDelete = false,
+                canEdit = false,
+                isPinned = false,
+                markedAsAds = true,
+                isFavourite = false,
+                null
+        )
+
+            val comment = Comments(
+            1,3,2,"GGG", 2,3, attachement = post.attachements[1]
+        )
+            service.comment(22, comment,post)
+        }
+
+
 }
 

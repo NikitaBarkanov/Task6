@@ -53,6 +53,9 @@ fun main(){
     println(post)
     println(WallService.repost(post))
     println(WallService.repost(post1))
+    val comment = Comments(1,3,2,"GGG", 2,3, attachement = post.attachements[1])
+    println(WallService.comment(66, comment, post))
+
 }
 
 interface Attachement{}
@@ -143,35 +146,4 @@ data class Post(
         result = 31 * result + attachements.contentHashCode()
         return result
     }
-}
-
-
-object WallService{
-
-    private var posts = emptyArray<Post>()
-
-    fun addPost(post: Post): Post {
-        posts += post
-        return posts.last()
-    }
-
-    fun update(newPost: Post): Boolean{
-        for ((index, post) in posts.withIndex()){
-            if (post.id == newPost.id){
-                posts[index] = post.copy(
-                    ownerId = newPost.ownerId + 1,
-                    fromId = newPost.fromId + 1,
-                    createBy = newPost.createBy + 1,
-                    text = newPost.text)
-                return true
-            }
-        }
-        return false
-    }
-
-    fun repost(post: Post): Post{
-        val original = post.original ?: post
-        return post
-    }
-
 }
