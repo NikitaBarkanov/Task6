@@ -58,10 +58,14 @@ fun main(){
 
 }
 
-interface Attachement{}
+interface Attachement{val type: String}
 
-data class AudioAttachement(val audioAttachement: String = "Audio"): Attachement{}
-data class VideoAttachement(val videioAttachement: String = "Video"): Attachement{}
+data class AudioAttachement(val audioAttachement: String = "Audio", override val type: String): Attachement{
+    constructor(): this("Audio","1")
+}
+data class VideoAttachement(val videioAttachement: String = "Video", override val type: String): Attachement{
+    constructor() : this("Video","1")
+}
 
 data class Text(val str: String = "text")
 
