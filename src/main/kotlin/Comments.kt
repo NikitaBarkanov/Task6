@@ -5,7 +5,7 @@ class Comments(
     val text: String,
     val replyToUser: Int,
     val replyToComment: Int,
-    attachement: Attachement
+    attachment: Attachment
 ){
 
 }

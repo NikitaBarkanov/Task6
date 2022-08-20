@@ -1,4 +1,4 @@
-fun main(){
+fun main() {
     val post = Post(
         1,
         1,
@@ -16,7 +16,7 @@ fun main(){
         1,
         false,
         true,
-        true,true,
+        true, true,
         true,
         true,
         null
@@ -38,7 +38,7 @@ fun main(){
         1,
         false,
         true,
-        true,true,
+        true, true,
         true,
         true,
         original = post
@@ -47,24 +47,27 @@ fun main(){
     WallService.addPost(post1)
     WallService.repost(post1)
     println(WallService.update(post1))
-    post.attachements += AudioAttachement()
-    post1.attachements += VideoAttachement()
-    post.attachements += VideoAttachement()
+    post.attachments += AudioAttachment()
+    post1.attachments += VideoAttachment()
+    post.attachments += VideoAttachment()
     println(post)
     println(WallService.repost(post))
     println(WallService.repost(post1))
-    val comment = Comments(1,3,2,"GGG", 2,3, attachement = post.attachements[1])
+    val comment = Comments(1, 3, 2, "GGG", 2, 3, attachment = post.attachments[1])
     println(WallService.comment(66, comment, post))
 
 }
 
-interface Attachement{val type: String}
-
-data class AudioAttachement(val audioAttachement: String = "Audio", override val type: String): Attachement{
-    constructor(): this("Audio","1")
+interface Attachment {
+    val type: String
 }
-data class VideoAttachement(val videioAttachement: String = "Video", override val type: String): Attachement{
-    constructor() : this("Video","1")
+
+data class AudioAttachment(val audioAttachment: String = "Audio") : Attachment {
+    override val type: String = "Audio"
+}
+
+data class VideoAttachment(val videoAttachment: String = "Video") : Attachment {
+    override val type: String = "Video"
 }
 
 data class Text(val str: String = "text")
@@ -81,7 +84,7 @@ data class Post(
     val friendsOnly: Boolean,
     val comments: Int,
     val likes: Int = 0,
-    val reposts: Int ,
+    val reposts: Int,
     val postType: String,
     val signerId: Int,
     val canPin: Boolean,
@@ -91,7 +94,7 @@ data class Post(
     val markedAsAds: Boolean,
     val isFavourite: Boolean,
     val original: Post?,
-    var attachements: Array<Attachement> = emptyArray()
+    var attachments: Array<Attachment> = emptyArray()
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -120,7 +123,7 @@ data class Post(
         if (markedAsAds != other.markedAsAds) return false
         if (isFavourite != other.isFavourite) return false
         if (original != other.original) return false
-        if (!attachements.contentEquals(other.attachements)) return false
+        if (!attachments.contentEquals(other.attachments)) return false
 
         return true
     }
@@ -147,7 +150,7 @@ data class Post(
         result = 31 * result + markedAsAds.hashCode()
         result = 31 * result + isFavourite.hashCode()
         result = 31 * result + (original?.hashCode() ?: 0)
-        result = 31 * result + attachements.contentHashCode()
+        result = 31 * result + attachments.contentHashCode()
         return result
     }
 }

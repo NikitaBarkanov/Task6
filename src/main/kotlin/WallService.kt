@@ -38,4 +38,5 @@ object WallService{
         return comments.last()
     }
 
+
 }
